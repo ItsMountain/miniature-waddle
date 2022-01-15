@@ -659,7 +659,6 @@ module.exports = {
 
   NotFoundPage: async (req, res) => {
     try {
-      
       res.render('admin/404/view_404', {
         title: "Staycation | Not Found",
         user: req.session.user,
