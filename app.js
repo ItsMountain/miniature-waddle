@@ -4,6 +4,19 @@ var router = express.Router();
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+  // intercept OPTIONS method
+  if ('OPTIONS' == req.method) {
+    res.send(200);
+  }
+  else {
+    next();
+  }
+};
 const methodOverride = require("method-override");
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -28,6 +41,7 @@ var app = express();
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.use(allowCrossDomain);
 app.use(methodOverride("_method"));
 app.use(
   session({
