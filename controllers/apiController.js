@@ -42,7 +42,7 @@ module.exports = {
             await item.save();
           }
         }
-      }
+      } 
 
       const testimonial = {
         _id: "asd1293uasdads1",
