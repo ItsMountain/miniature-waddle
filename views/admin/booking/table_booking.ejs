@@ -10,6 +10,7 @@
               <th>No</th>
               <th>Invoice</th>
               <th>Date</th>
+              <th>Duration</th>
               <th>Title</th>
               <th>Name Member</th>
               <th>Status</th>
@@ -24,6 +25,7 @@
               <td><%= booking[i].bookingStartDate.toLocaleString().split(',')[0] %> s/d
                 <%= booking[i].bookingEndDate.toLocaleString().split(',')[0] %>
               </td>
+              <td><%= booking[i].itemId.duration %></td>
               <td><%= booking[i].itemId.title %></td>
               <td><%= booking[i].memberId.firstName %> <%= booking[i].memberId.lastName %></td>
               <td><%= booking[i].payments.status %></td>
