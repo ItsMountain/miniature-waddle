@@ -4,18 +4,27 @@ var router = express.Router();
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const cors = require('cors');
 var allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-
+  res.header("Access-Control-Allow-Headers",
+    "Origin, X-Requeted-With, Content-Type, Accept, Authorization, RBR");
   // intercept OPTIONS method
-  if ('OPTIONS' == req.method) {
-    res.send(200);
+  // if ('OPTIONS' == req.method) {
+  //   res.send(200);
+  // }
+  // else {
+  //   next();
+  // }
+  if (req.headers.origin) {
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
   }
-  else {
-    next();
+  if (req.method === 'OPTIONS') {
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
+    return res.status(200).json({});
   }
+  next();
 };
 const methodOverride = require("method-override");
 const session = require("express-session");
@@ -37,6 +46,8 @@ const apiRouter = require("./routes/api");
 const notFoundRouter = require("./routes/notFound");
 
 var app = express();
+
+app.use(cors());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
